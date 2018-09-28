@@ -1,6 +1,6 @@
 
 [SpringBoot web进阶慕课网](https://www.imooc.com/learn/810)   
-#表单验证
+#表单验证  
 1. 在属性上使用@Min(value=18, message="未成年")等注解
 2. 在Controller方法参数上使用@Valid 验证参数,并使用BindingResult bindingResult 参数获取对应的message信息  
 ```
@@ -19,7 +19,7 @@
     }
 ```
 
-#AOP处理
+#AOP处理  
 Aspect Oriented Programming  
 将通用逻辑从业务中划分出来    
 用途:记录http请求/数据库操作  
@@ -104,7 +104,7 @@ public class HttpAspect {
 ```
 
 
-#异常处理
+#异常处理  
 1. 抛出异常
 2. 建立异常处理类,类使用@ControllerAdvice注解, 方法使用@Exception(value=Exception.class)
 
@@ -233,7 +233,7 @@ public class ResultUtil {
 }
 ``` 
 
-#单元测试  
+#单元测试     
 1. Service测试  
 2. Controller测试  
 
