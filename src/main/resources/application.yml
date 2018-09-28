@@ -1,11 +1,11 @@
 spring:
   profiles:
-    active: dev
+    active: dev  #设置使用application-dev.xml
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/dbgirl
+    url: jdbc:mysql://127.0.0.1:3306/test
     username: root
-    password: 123456
+    password: root
   jpa:
     hibernate:
       ddl-auto: update

@@ -1,11 +1,18 @@
 package com.imooc.controller;
 
+import com.imooc.aspect.HttpAspect;
 import com.imooc.domain.Girl;
+import com.imooc.domain.Result;
 import com.imooc.repository.GirlRepository;
 import com.imooc.service.GirlService;
+import com.imooc.utils.ResultUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -15,6 +22,8 @@ import java.util.List;
 @RestController
 public class GirlController {
 
+    private final static Logger logger = LoggerFactory.getLogger(GirlController.class);
+
     @Autowired
     private GirlRepository girlRepository;
 
@@ -23,6 +32,7 @@ public class GirlController {
 
     /**
      * 查询所有女生列表
+     *
      * @return
      */
     @GetMapping(value = "/girls")
@@ -32,18 +42,19 @@ public class GirlController {
 
     /**
      * 添加一个女生
-     * @param cupSize
-     * @param age
+     *
      * @return
      */
     @PostMapping(value = "/girls")
-    public Girl girlAdd(@RequestParam("cupSize") String cupSize,
-                          @RequestParam("age") Integer age) {
-        Girl girl = new Girl();
-        girl.setCupSize(cupSize);
-        girl.setAge(age);
+    public Result<Girl> girlAdd(@Valid Girl girl, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            logger.info(bindingResult.getFieldError().getDefaultMessage());
 
-        return girlRepository.save(girl);
+            return ResultUtil.error(1, bindingResult.getFieldError().getDefaultMessage());
+        }
+
+        return ResultUtil.success(girlRepository.save(girl));
+
     }
 
     //查询一个女生
@@ -80,5 +91,15 @@ public class GirlController {
     @PostMapping(value = "/girls/two")
     public void girlTwo() {
         girlService.insertTwo();
+    }
+
+
+    @GetMapping(value = "girls/getAge/{id}")
+    public Result  getAge(@PathVariable("id") Integer id) throws Exception {
+
+        girlService.getAge(id);
+
+        return ResultUtil.success(girlService.getAge(id));
+
     }
 }
