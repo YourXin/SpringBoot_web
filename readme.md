@@ -1,5 +1,5 @@
 
-[SpringBoot web进阶慕课网](https://www.imooc.com/learn/810)  
+[SpringBoot web进阶慕课网](https://www.imooc.com/learn/810)   
 #表单验证
 1. 在属性上使用@Min(value=18, message="未成年")等注解
 2. 在Controller方法参数上使用@Valid 验证参数,并使用BindingResult bindingResult 参数获取对应的message信息  
@@ -44,7 +44,8 @@ public class ExceptionHandle {
 
     }
 
-```
+```   
+
 ```
 Result.java
 
@@ -150,7 +151,44 @@ public class ResultUtil {
 
 
 }
+``` 
+
+#单元测试  
+1. Service测试  
+2. Controller测试  
+
 ```
-1
+@RunWith(SpringRunner.class)
+@SpringBootTest
+@AutoConfigureMockMvc
+public class GirlControllerTest {
 
 
+    /**
+     * 针对Controller进行测试
+     */
+
+    @Autowired
+    private MockMvc mvc;
+
+    @Autowired
+    private GirlController girlController;
+
+    @Test
+    public void girlList() throws Exception {
+
+        mvc.perform(MockMvcRequestBuilders.get("/girls213"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+        .andExpect(MockMvcResultMatchers.content().string("abc"));
+    }
+
+
+```
+1. 打包测试
+`mvn clean package`  
+使用命令进行打包的时候,会进行所有用例的测试  
+2. 打包时跳过测试
+```
+mvn clean package -Dmaven.test.skip=true
+
+```
