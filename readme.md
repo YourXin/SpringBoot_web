@@ -1,3 +1,5 @@
+
+[SpringBoot web进阶慕课网](https://www.imooc.com/learn/810)
 #表单验证
 1. 在属性上使用@Min(value=18, message="未成年")等注解
 2. 在Controller方法参数上使用@Valid 验证参数,并使用BindingResult bindingResult 参数获取对应的message信息  
